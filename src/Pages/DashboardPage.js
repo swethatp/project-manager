@@ -48,8 +48,8 @@ dispatch(deleteProject({projId:projectId,uId:userId}))
             {project.map(proj =>(
                 <div key={proj.id}>
                     <div className=' rounded-md bg-slate-300 m-6 p-5'>
-                        <h2>project id: {proj.id}</h2>
-                    <h2 className=' font-bold text-xl mb-5'>Project Title: {proj.name}</h2>
+                        <h2>Project id: {proj.id}</h2>
+                    <h2 className=' font-bold text-xl mb-5'>Project  Title: {proj.name}</h2>
                     <p className='m-3'><b>Creation Time:</b> {proj.createdAt}</p>
                     <p className='m-3'><b>Details:</b> {proj.details}</p>
                     <p className='m-3'><b>Start Date:</b> {proj.startedAt}</p>
