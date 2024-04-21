@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 export default function ProtectedRoute({ children }) {
   const userContext = useContext(UserContext);
   console.log(userContext);
@@ -16,9 +17,10 @@ export default function ProtectedRoute({ children }) {
     <div>
         <header className='  flex justify-between pr-5 pl-5 pt-3 bg-blue-900  text-white  font-bold  text-lg h-14'>
             <div>
-            Project Manager
+            <Link to="/dashboard">  Project Manager</Link>
             </div>
-            <div>{userContext.user.name}</div>
+            <div>{userContext.user.name}
+            </div>
             </header>
 
         <div className='flex'>

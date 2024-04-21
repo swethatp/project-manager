@@ -4,7 +4,7 @@ import LoginPage from "./Pages/LoginPage";
 import DashboardPage from "./Pages/DashboardPage";
 import RegisterPage from "./Pages/RegisterPage";
 import ProjectPage from "./Pages/ProjectPage";
-
+import EditPage from "./Pages/EditPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddProject from "./Pages/AddProject";
 // import Parent from "./component/Parent";
@@ -45,7 +45,7 @@ function App() {
         ></Route>
 
 <Route
-          path="/project"
+          path="/project/:id"
           element={
             <ProtectedRoute>
               <ProjectPage />
@@ -58,6 +58,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AddProject />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditPage />
             </ProtectedRoute>
           }
         ></Route>

@@ -13,7 +13,7 @@ export default function RegisterPage() {
     const userContext=useContext(UserContext);
     const[error,setError]=useState(null);
     function registerUser(event){
-        event.preventDefault();
+        
     console.log(userData);
     const addState = userContext.addUser(userData);
     console.log(addState);

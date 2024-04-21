@@ -3,21 +3,24 @@ import React, {useState,useEffect, useContext} from 'react'
 import { useDispatch } from "react-redux";
 import { createProject } from "../store/ProjectSlice";
 import UserContext from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 export default function AddProject() {
     const userContext=useContext(UserContext)
     const [newProject,setNewProject]=useState({
-       name :"",
-        createdAt:"",
-    details:"",
-    startedAt:"",
-    endingAt:"",
-    userId:userContext.user.id
+    //    name :"",
+    //     createdAt:"",
+    // details:"",
+    // startedAt:"",
+    // endingAt:"",
+    // userId:userContext.user.id
     })
+    const navigate=useNavigate()
     const dispatch=useDispatch()
     function handleSubmit(event){
 event.preventDefault()
         console.log(newProject)
         dispatch(createProject(newProject))
+        navigate('/dashboard')
     }
   return (
     <div>
@@ -96,7 +99,7 @@ event.preventDefault()
                   Start Date
                 </label>
                 <input
-                  type="datetime-local "
+                  type="date "
                   name="startedAt"
                   id="startedAt"
                   placeholder=""
@@ -117,7 +120,7 @@ event.preventDefault()
                   End Date
                 </label>
                 <input
-                  type="datetime-local "
+                  type="date "
                   name="endingAt"
                   id="endingAt"
                   placeholder=""

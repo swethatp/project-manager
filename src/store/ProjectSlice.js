@@ -1,7 +1,7 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
-import UserContext from '../context/UserContext'
-import { useContext } from 'react'
+// import { useNavigate } from "react-router-dom";
+// import UserContext from '../context/UserContext'
+// import { useContext } from 'react'
 
 
 
@@ -30,6 +30,23 @@ import { useContext } from 'react'
 
     extraReducers:(builder)=>{
         builder
+
+        .addCase(fetchProjects.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(fetchProjects.fulfilled, (state, action) => {
+          state.loading = false;
+          if (action.payload === "Not found") {
+            state.projects = state.projects;
+          }
+          else{
+            state.projects=action.payload
+          }
+        })
+        .addCase(fetchProjects.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.error;
+        })
             .addCase(createProject.pending,(state)=>
             {
                 state.loading=true;
@@ -56,6 +73,16 @@ import { useContext } from 'react'
                 console.log(action);
               })
 
+              .addCase(updateProject.fulfilled, (state, action) => {
+                const updatedProject = action.payload;
+                const index = state.projects.findIndex(
+                  (project) => project.id === updatedProject.id
+                );
+                if (index !== -1) {
+                  state.projects[index] = updatedProject;
+                }
+              });
+
     }
 })
 
@@ -77,6 +104,37 @@ import { useContext } from 'react'
           return data;
         }
         
+      );
+
+      export const fetchProjects = createAsyncThunk(
+        "projects/getAll",
+        async (userid) => {
+          console.log(userid)
+          const res = await fetch(
+            `https://6620ba383bf790e070b06c93.mockapi.io/api/v1/user/${userid}/project`
+          );
+          const data = await res.json();
+          return data;
+        }
+      )
+
+      export const updateProject = createAsyncThunk(
+        "projects/update",
+        async (updatedData) => {
+          const res = await fetch(
+            `https://6620ba383bf790e070b06c93.mockapi.io/api/v1/project/${updatedData.id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updatedData),
+            }
+          );
+          const data = await res.json();
+          console.log("data from api", data);
+          return data;
+        }
       );
 
       export const deleteProject = createAsyncThunk(

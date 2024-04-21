@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import UserContext from "./UserContext";
+import { useDispatch, useSelector } from "react-redux";
+// import { fetchUsers } from "../store/userSlice";
+import { fetchProjects } from "../store/ProjectSlice";
 
 export default function UserStore({ children }) {
+  const dispatch = useDispatch();
   const [user, setUser] = useState(null);
   const [apiUserData,setapiUserData]=useState([]);
   const userApiUrl="https://6620ba383bf790e070b06c93.mockapi.io/api/v1/user"
@@ -15,6 +19,8 @@ export default function UserStore({ children }) {
         email: foundUser.email,
         id: foundUser.id
       });
+
+      dispatch(fetchProjects(foundUser.id));
 
       return true
     } else {
@@ -42,6 +48,8 @@ async function userApiCall()
 }
 useEffect(()=>{
     userApiCall()
+
+    
 },[])
 
   return (
